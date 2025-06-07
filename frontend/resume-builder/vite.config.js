@@ -13,10 +13,13 @@ export default defineConfig({
       }
     }
   },
+  define: {
+    'process.env.VITE_API_URL': JSON.stringify('https://resume-builder-backend-tvxl.onrender.com')
+  },
   server: {
     proxy: {
       '/api': {
-        target: process.env.VITE_API_URL || 'http://localhost:5000',
+        target: process.env.VITE_API_URL || 'https://resume-builder-backend-tvxl.onrender.com',
         changeOrigin: true,
         secure: false,
       }

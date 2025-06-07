@@ -12,11 +12,23 @@ const resumeRoutes = require('./routes/resumeRoutes')
 
 const app = express();
 
+const allowedOrigins = [
+    'https://resume-builder-five-flax.vercel.app',
+    'https://resume-builder-git-main-knownstrangertapasyas-projects.vercel.app',
+    'http://localhost:5173'
+];
+
 //Middleware to handle CORS
 app.use(
     cors({
-    origin: process.env.FRONTEND_URL || 'https://resume-builder-five-flax.vercel.app',
-    credentials: true
+        origin: function(origin, callback) {
+            if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+                callback(null, true);
+            } else {
+                callback(new Error('Not allowed by CORS'));
+            }
+        },
+        credentials: true
     })
 );
 
@@ -49,8 +61,8 @@ app.use("/api/resume", resumeRoutes);
 app.use(
     "/uploads",
     express.static(path.join(__dirname, "uploads"), {
-        setHeaders: (res,path) => {
-            res.set("Access-Control-Allow-Origin", process.env.FRONTEND_URL || "http://localhost:5173");
+        setHeaders: (res, path) => {
+            res.set("Access-Control-Allow-Origin", allowedOrigins.join(', '));
         },
     })
 );
