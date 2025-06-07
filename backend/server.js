@@ -27,6 +27,15 @@ connectDB();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Root route
+app.get('/', (req, res) => {
+    res.json({ 
+        message: 'Resume Builder API is running',
+        status: 'ok',
+        timestamp: new Date().toISOString()
+    });
+});
+
 //Rate limiting
 app.use('/api/', apiLimiter);
 app.use('/api/auth/', authLimiter);
