@@ -15,9 +15,8 @@ const app = express();
 //Middleware to handle CORS
 app.use(
     cors({
-    origin: process.env.CLIENT_URL || "*",
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization"],
+    origin: process.env.FRONTEND_URL || 'https://resume-builder-five-flax.vercel.app',
+    credentials: true
     })
 );
 
