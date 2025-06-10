@@ -1,5 +1,7 @@
-// Get the base URL from environment variables, fallback to localhost for development
-export const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
+// BASE_URL configuration:
+// - In development (npm run dev): "http://localhost:8000"
+// - In production (after build): "" (empty string for relative paths, works with Vercel proxy)
+export const BASE_URL = import.meta.env.DEV ? "http://localhost:8000" : "";
 
 //utils/apiPaths.js
 export const API_PATHS = {
