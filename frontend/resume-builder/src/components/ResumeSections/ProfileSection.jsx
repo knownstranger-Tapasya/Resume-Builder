@@ -36,7 +36,7 @@ const ProfileSection = ({ data, onChange, errors = {} }) => {
 
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_API_URL}/api/auth/upload-image`,
+        '/api/auth/upload-image',
         formData,
         {
           headers: {

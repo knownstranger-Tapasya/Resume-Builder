@@ -21,7 +21,7 @@ const Dashboard = () => {
   const fetchResumes = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/resume`, {
+      const response = await axios.get('/api/resume', {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -42,10 +42,9 @@ const Dashboard = () => {
 
   const handleDelete = async (id) => {
     if (!window.confirm('Are you sure you want to delete this resume?')) return;
-
     try {
       const token = localStorage.getItem('token');
-      await axios.delete(`${import.meta.env.VITE_API_URL}/api/resume/${id}`, {
+      await axios.delete(`/api/resume/${id}`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -54,12 +53,7 @@ const Dashboard = () => {
       fetchResumes();
     } catch (err) {
       console.error('Failed to delete resume:', err);
-      if (err.response?.status === 401) {
-        toast.error('Session expired. Please login again.');
-        logout();
-      } else {
-        toast.error('Failed to delete resume');
-      }
+      toast.error('Failed to delete resume');
     }
   };
 

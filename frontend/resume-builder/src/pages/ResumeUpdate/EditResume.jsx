@@ -62,7 +62,7 @@ const EditResume = () => {
   useEffect(() => {
     const fetchResume = async () => {
       try {
-        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/resume/${resumeId}`);
+        const response = await axios.get(`/api/resume/${resumeId}`);
         setResumeData(response.data);
       } catch (err) {
         console.error('Failed to load resume:', err);
@@ -107,7 +107,7 @@ const EditResume = () => {
     setSaving(true);
     try {
       const method = resumeId === 'new' ? 'post' : 'put';
-      const url = `${import.meta.env.VITE_API_URL}/api/resume${resumeId === 'new' ? '' : `/${resumeId}`}`;
+      const url = `/api/resume${resumeId === 'new' ? '' : `/${resumeId}`}`;
       
       const response = await axios[method](url, {
         ...resumeData,

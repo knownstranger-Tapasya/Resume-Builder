@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import ModernTemplate from '../../components/ResumeTemplates/ModernTemplate';
@@ -7,6 +7,7 @@ import { generatePDF } from '../../utils/pdfGenerator';
 
 const ViewResume = () => {
   const { resumeId } = useParams();
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [downloading, setDownloading] = useState(false);
   const [resumeData, setResumeData] = useState(null);
@@ -14,18 +15,19 @@ const ViewResume = () => {
   useEffect(() => {
     const fetchResume = async () => {
       try {
-        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/resume/${resumeId}`);
+        const response = await axios.get(`/api/resume/${resumeId}`);
         setResumeData(response.data);
       } catch (err) {
         console.error('Failed to load resume:', err);
         toast.error('Failed to load resume');
+        navigate('/dashboard');
       } finally {
         setLoading(false);
       }
     };
 
     fetchResume();
-  }, [resumeId]);
+  }, [resumeId, navigate]);
 
   const handleDownload = async () => {
     setDownloading(true);

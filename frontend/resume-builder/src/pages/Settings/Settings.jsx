@@ -21,7 +21,7 @@ const Settings = () => {
   useEffect(() => {
     const fetchPreferences = async () => {
       try {
-        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/auth/profile`);
+        const response = await axios.get('/api/auth/profile');
         const { preferences } = response.data;
         if (preferences) {
           setSettings(prev => ({
@@ -59,7 +59,7 @@ const Settings = () => {
     setSaving(true);
     try {
       await axios.put(
-        `${import.meta.env.VITE_API_URL}/api/auth/change-password`,
+        '/api/auth/change-password',
         {
           oldPassword: settings.oldPassword,
           newPassword: settings.newPassword
@@ -85,7 +85,7 @@ const Settings = () => {
     setSaving(true);
     try {
       await axios.put(
-        `${import.meta.env.VITE_API_URL}/api/auth/preferences`,
+        '/api/auth/preferences',
         {
           emailNotifications: settings.emailNotifications,
           theme: settings.theme
