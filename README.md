@@ -174,9 +174,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - [Node.js](https://nodejs.org/)
 - [Express](https://expressjs.com/)
 - [MongoDB](https://www.mongodb.com/)
+- [TailwindCSS](https://tailwindcss.com/)
 
+  
   ## Preview
 
   ![image](https://github.com/user-attachments/assets/b49d3a80-81b0-4b64-aadb-1149af791009)
-
-- [TailwindCSS](https://tailwindcss.com/) 
