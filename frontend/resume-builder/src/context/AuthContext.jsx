@@ -22,7 +22,7 @@ export const AuthProvider = ({ children }) => {
         
         // Verify token is still valid
         try {
-          const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/auth/profile`);
+          const response = await axios.get('/api/auth/profile');
           // Update user data from server
           setUser(response.data);
           localStorage.setItem('user', JSON.stringify(response.data));
