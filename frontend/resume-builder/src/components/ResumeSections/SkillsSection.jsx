@@ -1,7 +1,7 @@
 import React from 'react';
 import { FaTrash, FaPlus } from 'react-icons/fa';
 
-const SkillsSection = ({ data = [], onChange }) => {
+const SkillsSection = ({ data = [], onChange, errors = {} }) => {
   const handleAdd = () => {
     onChange([
       ...data,
@@ -54,9 +54,16 @@ const SkillsSection = ({ data = [], onChange }) => {
               type="text"
               value={skill.name || ''}
               onChange={(e) => handleChange(index, 'name', e.target.value)}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+              className={`mt-1 block w-full rounded-md shadow-sm sm:text-sm ${
+                errors[`skills.${index}.name`]
+                  ? 'border-red-300 text-red-900 placeholder-red-300 focus:border-red-500 focus:ring-red-500'
+                  : 'border-gray-300 focus:border-indigo-500 focus:ring-indigo-500'
+              }`}
               placeholder="e.g., JavaScript, Python, Project Management"
             />
+            {errors[`skills.${index}.name`] && (
+              <p className="mt-1 text-sm text-red-600">{errors[`skills.${index}.name`]}</p>
+            )}
           </div>
 
           <div>
@@ -70,8 +77,13 @@ const SkillsSection = ({ data = [], onChange }) => {
               max="100"
               value={skill.progress || 50}
               onChange={(e) => handleChange(index, 'progress', e.target.value)}
-              className="mt-1 block w-full"
+              className={`mt-1 block w-full ${
+                errors[`skills.${index}.progress`] ? 'accent-red-500' : ''
+              }`}
             />
+            {errors[`skills.${index}.progress`] && (
+              <p className="mt-1 text-sm text-red-600">{errors[`skills.${index}.progress`]}</p>
+            )}
             <div className="flex justify-between text-xs text-gray-500">
               <span>Beginner</span>
               <span>Intermediate</span>

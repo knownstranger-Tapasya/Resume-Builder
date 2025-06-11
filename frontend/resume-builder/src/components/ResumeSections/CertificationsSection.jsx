@@ -1,5 +1,6 @@
 import React from 'react';
 import { FaTrash, FaPlus } from 'react-icons/fa';
+import MonthInput from '../inputs/MonthInput';
 
 const CertificationsSection = ({ data = [], onChange }) => {
   const handleAdd = () => {
@@ -71,16 +72,12 @@ const CertificationsSection = ({ data = [], onChange }) => {
             />
           </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700">Year</label>
-            <input
-              type="text"
-              value={certification.year || ''}
-              onChange={(e) => handleChange(index, 'year', e.target.value)}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-              placeholder="YYYY"
-            />
-          </div>
+          <MonthInput
+            label="Date"
+            value={certification.year}
+            onChange={(e) => handleChange(index, 'year', e.target.value)}
+            placeholder="MM/YYYY"
+          />
         </div>
       ))}
 

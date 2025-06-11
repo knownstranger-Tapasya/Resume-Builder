@@ -1,7 +1,8 @@
 import React from 'react';
 import { FaTrash, FaPlus } from 'react-icons/fa';
+import MonthInput from '../inputs/MonthInput';
 
-const EducationSection = ({ data = [], onChange }) => {
+const EducationSection = ({ data = [], onChange, errors = {} }) => {
   const handleAdd = () => {
     onChange([
       ...data,
@@ -24,6 +25,10 @@ const EducationSection = ({ data = [], onChange }) => {
       ...newData[index],
       [field]: value,
     };
+    // Ensure the date is not empty when saving
+    if ((field === 'startDate' || field === 'endDate') && value === '') {
+      return;
+    }
     onChange(newData);
   };
 
@@ -56,9 +61,16 @@ const EducationSection = ({ data = [], onChange }) => {
               type="text"
               value={education.degree || ''}
               onChange={(e) => handleChange(index, 'degree', e.target.value)}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+              className={`mt-1 block w-full rounded-md shadow-sm sm:text-sm ${
+                errors[`education.${index}.degree`]
+                  ? 'border-red-300 text-red-900 placeholder-red-300 focus:border-red-500 focus:ring-red-500'
+                  : 'border-gray-300 focus:border-indigo-500 focus:ring-indigo-500'
+              }`}
               placeholder="Bachelor of Science in Computer Science"
             />
+            {errors[`education.${index}.degree`] && (
+              <p className="mt-1 text-sm text-red-600">{errors[`education.${index}.degree`]}</p>
+            )}
           </div>
 
           <div>
@@ -67,32 +79,42 @@ const EducationSection = ({ data = [], onChange }) => {
               type="text"
               value={education.institution || ''}
               onChange={(e) => handleChange(index, 'institution', e.target.value)}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+              className={`mt-1 block w-full rounded-md shadow-sm sm:text-sm ${
+                errors[`education.${index}.institution`]
+                  ? 'border-red-300 text-red-900 placeholder-red-300 focus:border-red-500 focus:ring-red-500'
+                  : 'border-gray-300 focus:border-indigo-500 focus:ring-indigo-500'
+              }`}
               placeholder="University Name"
             />
+            {errors[`education.${index}.institution`] && (
+              <p className="mt-1 text-sm text-red-600">{errors[`education.${index}.institution`]}</p>
+            )}
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700">Start Date</label>
-              <input
-                type="text"
+              <MonthInput
+                label="Start Date"
                 value={education.startDate || ''}
                 onChange={(e) => handleChange(index, 'startDate', e.target.value)}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                 placeholder="MM/YYYY"
+                error={errors[`education.${index}.startDate`]}
               />
+              {errors[`education.${index}.startDate`] && (
+                <p className="mt-1 text-sm text-red-600">{errors[`education.${index}.startDate`]}</p>
+              )}
             </div>
-
             <div>
-              <label className="block text-sm font-medium text-gray-700">End Date</label>
-              <input
-                type="text"
+              <MonthInput
+                label="End Date"
                 value={education.endDate || ''}
                 onChange={(e) => handleChange(index, 'endDate', e.target.value)}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                placeholder="MM/YYYY or Expected MM/YYYY"
+                placeholder="MM/YYYY or Expected YYYY"
+                error={errors[`education.${index}.endDate`]}
               />
+              {errors[`education.${index}.endDate`] && (
+                <p className="mt-1 text-sm text-red-600">{errors[`education.${index}.endDate`]}</p>
+              )}
             </div>
           </div>
         </div>

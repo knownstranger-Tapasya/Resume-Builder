@@ -90,8 +90,8 @@ export const validateResumeData = (data) => {
       if (!edu.institution?.trim()) {
         errors[`education.${index}.institution`] = 'Institution is required';
       }
-      if (!edu.startYear?.trim()) {
-        errors[`education.${index}.startYear`] = 'Start year is required';
+      if (!edu.startDate?.trim()) {
+        errors[`education.${index}.startDate`] = 'Start date is required';
       }
     });
   }
@@ -102,8 +102,8 @@ export const validateResumeData = (data) => {
       if (!skill.name?.trim()) {
         errors[`skills.${index}.name`] = 'Skill name is required';
       }
-      if (!skill.level) {
-        errors[`skills.${index}.level`] = 'Skill level is required';
+      if (skill.progress === undefined || skill.progress === null) {
+        errors[`skills.${index}.progress`] = 'Skill level is required';
       }
     });
   }
