@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
-import axiosInstance from '../../utils/axiosConfig';
+import axios from 'axios';
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -25,7 +25,7 @@ const SignUp = () => {
     }
     setLoading(true);
     try {
-      await axiosInstance.post('/api/auth/register', {
+      await axios.post('/api/auth/register', {
         name: formData.name,
         email: formData.email,
         password: formData.password,
